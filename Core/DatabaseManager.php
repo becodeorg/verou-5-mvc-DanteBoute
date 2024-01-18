@@ -24,7 +24,6 @@ class DatabaseManager
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             // last line makes the data coming back from the DB an associative array
-            echo "connection successfull!";
         } catch (PDOException $error) {
             echo $error->getMessage();
         }

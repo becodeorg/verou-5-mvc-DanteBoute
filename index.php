@@ -10,22 +10,12 @@ error_reporting(E_ALL);
 require_once 'Models/Article.php';
 //include all your controllers here
 require_once 'config.php';
-
-if (isset($config)) {
-    $databaseManager = new DatabaseManager($config['host'], $config['user'], $config['password'], $config['dbname']);
-    $databaseManager->connect();
-} else {
-    echo "Error: Configuration not found.";
-}
 require_once 'Controllers/HomepageController.php';
 require_once 'Controllers/ArticleController.php';
 
 require_once 'Core/DatabaseManager.php';
 $databaseManager = new DatabaseManager($config['host'], $config['user'], $config['password'], $config['dbname']);
 $databaseManager->connect(); // Connect to the database
-
-$articlesData = new Article($databaseManager);
-$articles = $articlesData->getAllArticles();
 
 // Get the current page to load
 // If nothing is specified, it will remain empty (home should be loaded)
@@ -38,7 +28,7 @@ switch ($page) {
         // This is shorthand for:
         // $articleController = new ArticleController;
         // $articleController->index();
-        (new ArticleController())->index();
+        (new ArticleController($databaseManager))->index();
         break;
     case 'articles-show':
         // TODO: detail page
