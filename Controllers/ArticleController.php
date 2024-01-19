@@ -34,7 +34,7 @@ class ArticleController
         
         foreach ($rawArticles as $rawArticle) {
             // We are converting an article from a "dumb" array to a much more flexible class
-            $articles[] = new Article($rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
+            $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
         }
 
         return $articles;
@@ -42,18 +42,24 @@ class ArticleController
 
     public function show($articleId)
     {
+        if (!is_numeric($articleId)) {
+            echo "Invalid article ID";
+            return;
+        }
         // TODO: this can be used for a detail page
 
         try {
-            $sql = "SELECT * FROM cards WHERE id = :id ;";
+            $sql = "SELECT * FROM articles WHERE id = :id ;";
             $statement = $this->databaseManager->connection->prepare($sql);
-            $statement->bindParam(':id', $_GET['id']);
+            $statement->bindParam(':id', $articleId);
             $statement->execute();
             $article = $statement->fetch(PDO::FETCH_ASSOC);
             return $article;
+            require 'View/articles/show.php';
         } catch (PDOException $error) {
             echo "Error: " . $error->getMessage();
             return [];
+            
         }
     }
 }
