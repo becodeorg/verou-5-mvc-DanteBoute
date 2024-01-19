@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,19 @@
 
     <nav>
     <a href="View/home.php">HOME</a>
-    <a href="View/articles/show.php">ARTICLES</a>
+    <a href="View/articles/index.php">ARTICLES</a>
 </nav>
 </body>
-</html>
+</html> -->
+
+<?php require 'View/includes/header.php'?>
+
+<?php // Use any data loaded in the controller here ?>
+
+<section>
+    <p><a href="index.php?page=articles">To articles page</a></p>
+
+    <p>Put your content here.</p>
+</section>
+
+<?php require 'View/includes/footer.php'?>

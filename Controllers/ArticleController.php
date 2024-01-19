@@ -7,9 +7,9 @@ class ArticleController
     private DatabaseManager $databaseManager;
 
     // This class needs a database connection to function
-    public function __construct(DatabaseManager $databaseManager)
+    public function __construct(DatabaseManager $dbm)
     {
-        $this->databaseManager = $databaseManager;
+        $this->databaseManager = $dbm;
     }
     public function index()
     {
@@ -29,9 +29,9 @@ class ArticleController
         // TODO: prepare the database connection
         // Note: you might want to use a re-usable databaseManager class - the choice is yours
         // TODO: fetch all articles as $rawArticles (as a simple array)
-        $rawArticles = [];
-
         $articles = [];
+        $rawArticles = $statement->fetchAll(PDO::FETCH_ASSOC);
+        
         foreach ($rawArticles as $rawArticle) {
             // We are converting an article from a "dumb" array to a much more flexible class
             $articles[] = new Article($rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
@@ -40,8 +40,15 @@ class ArticleController
         return $articles;
     }
 
-    public function show()
+    public function show(int $id)
     {
         // TODO: this can be used for a detail page
+
+        $sql = "SELECT * FROM articles WHERE id = $id";
+        $statement = $this->databaseManager->connection->prepare($sql);
+        $statement->execute();
+
+        
+
     }
 }

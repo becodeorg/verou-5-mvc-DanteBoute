@@ -1,28 +1,22 @@
 <?php
-require_once 'Core/DatabaseManager.php'; // Include the DatabaseManager class
+
+declare(strict_types=1);
 
 class Article
 {
-    private $databaseManager;
-    private $tableName = 'articles';
+    public string $title;
+    public ?string $description;
+    public ?string $publishDate;
 
-    // The DatabaseManager (green text) is a TYPEHINT of $databaseManager
-    // so only objects of the 'Databasemanager' type are allowed as arguments in this constructor.
-    public function __construct(DatabaseManager $databaseManager)
+    public function __construct(string $title, ?string $description, ?string $publishDate)
     {
-        $this->databaseManager = $databaseManager;
+        $this->title = $title;
+        $this->description = $description;
+        $this->publishDate = $publishDate;
     }
 
-    public function getAllArticles()
+    public function formatPublishDate($format = 'DD-MM-YYYY')
     {
-        try {
-            $this->databaseManager->connect();
-            $query = "SELECT * FROM $this->tableName";
-            $statement = $this->databaseManager->connection->query($query);
-            return $statement->fetchAll();
-        } catch (Exception $e) {
-            // Handle the exception as needed
-            echo "Error: " . $e->getMessage();
-        }
+        // TODO: return the date in the required format
     }
 }
