@@ -8,7 +8,7 @@
     <hr>
     <ul>
         <?php foreach ($articles as $article) : ?>
-            <li><a href="?action=show&id="><?= $article->title ?> <?= $article->formatPublishDate() ?></a></li>
+            <li><a href="?page=show&id=<?= $articleId ?>"><?= $article->title ?> <?= $article->formatPublishDate() ?></a></li>
         <?php endforeach; ?>
     </ul>
 </section>

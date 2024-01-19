@@ -40,15 +40,20 @@ class ArticleController
         return $articles;
     }
 
-    public function show(int $id)
+    public function show($articleId)
     {
         // TODO: this can be used for a detail page
 
-        $sql = "SELECT * FROM articles WHERE id = $id";
-        $statement = $this->databaseManager->connection->prepare($sql);
-        $statement->execute();
-
-        
-
+        try {
+            $sql = "SELECT * FROM cards WHERE id = :id ;";
+            $statement = $this->databaseManager->connection->prepare($sql);
+            $statement->bindParam(':id', $_GET['id']);
+            $statement->execute();
+            $article = $statement->fetch(PDO::FETCH_ASSOC);
+            return $article;
+        } catch (PDOException $error) {
+            echo "Error: " . $error->getMessage();
+            return [];
+        }
     }
 }
