@@ -36,12 +36,12 @@ class ArticleController
             // We are converting an article from a "dumb" array to a much more flexible class
             $articles[] = new Article($rawArticle['id'], $rawArticle['title'], $rawArticle['description'], $rawArticle['publish_date']);
         }
-
         return $articles;
     }
 
     public function show($articleId)
     {
+        
         if (!is_numeric($articleId)) {
             echo "Invalid article ID";
             return;
