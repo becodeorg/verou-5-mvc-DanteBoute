@@ -21,9 +21,9 @@ class Article
         return $this->id;
     }
 
-    public function formatPublishDate($format = 'DD-MM-YYYY')
-    {
-        // TODO: return the date in the required format
-    }
+    public function formatPublishDate($format = 'd-m-Y')
+{
+    return date($format, strtotime($this->publishDate));
+}
 
 }

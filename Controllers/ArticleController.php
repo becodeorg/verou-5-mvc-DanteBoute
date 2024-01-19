@@ -53,13 +53,11 @@ class ArticleController
             $statement = $this->databaseManager->connection->prepare($sql);
             $statement->bindParam(':id', $articleId);
             $statement->execute();
-            $article = $statement->fetch(PDO::FETCH_ASSOC);
-            return $article;
+            $article = $statement->fetch(PDO::FETCH_OBJ);
             require 'View/articles/show.php';
         } catch (PDOException $error) {
             echo "Error: " . $error->getMessage();
             return [];
-            
         }
     }
 }
